@@ -1,0 +1,17 @@
+<header class="flex">
+  <img
+    alt="Nx logo"
+    width="75"
+    src="https://nx.dev/assets/images/nx-logo-white.svg"
+  />
+  <h1>Welcome to {{ title }}!</h1>
+</header>
+<main>
+  <input ngxCzIn [formControl]="ctrl" />
+  <input ngxCzIn [formControl]="ctrl2" />
+  <input ngxCzIn [formControl]="ctrl3" [options]="options" />
+
+  <form [formGroup]="form">
+    <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
+  </form>
+</main>
