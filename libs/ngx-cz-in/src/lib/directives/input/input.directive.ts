@@ -151,9 +151,11 @@ export class IdInputDirective implements ControlValueAccessor {
 }
 
 export function isInValid(
-  idn: string | number,
+  idn: string | number | null,
   addLeadingZeros = false,
 ): boolean {
+  if (!idn) return false;
+
   if (typeof idn === 'number') {
     idn = idn.toString();
   }
