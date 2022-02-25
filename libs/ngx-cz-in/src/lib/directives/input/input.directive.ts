@@ -1,3 +1,4 @@
+import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
   ChangeDetectorRef,
   Directive,
@@ -15,7 +16,7 @@ import {
 
 import { CzInOptions } from '../../interfaces/cz-in.interface';
 
-const ID_VALUE_ACCESSOR: any = {
+const ID_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => IdInputDirective),
   multi: true,
@@ -29,23 +30,31 @@ const ID_VALUE_VALIDATOR = {
 
 @Directive({
   selector: '[ngxCzIn]',
-  // tslint:disable-next-line: no-host-metadata-property
   host: {
+    '(blur)': 'onBlur()',
     '(click)': 'onClick()',
     '(input)': 'onInput($event.target.value)',
   },
   providers: [ID_VALUE_ACCESSOR, ID_VALUE_VALIDATOR],
 })
 export class IdInputDirective implements ControlValueAccessor {
-  @Input() min: number | undefined;
-  @Input() max: number | undefined;
-  @Input() options: CzInOptions;
-  @Input() required: boolean;
+  @Input() min?: number;
+  @Input() max?: number;
+  @Input() options?: CzInOptions;
+
+  @Input()
+  get required(): boolean {
+    return this.#required;
+  }
+  set required(search: BooleanInput) {
+    this.#required = coerceBooleanProperty(search);
+  }
+  #required = false;
 
   touchedFn: any = null;
   changeFn: any = null;
   disabled = false;
-  emitted = null;
+  emitted: string | null = null;
 
   prevValue = '';
 
@@ -76,7 +85,9 @@ export class IdInputDirective implements ControlValueAccessor {
     this.touchedFn?.();
   }
 
-  onInput(value: string) {
+  onInput(value: string | null) {
+    if (value === this.emitted) return;
+
     const id = value?.match(/\d+/g);
 
     if (!id) {
@@ -95,13 +106,13 @@ export class IdInputDirective implements ControlValueAccessor {
     this.updateView(string);
 
     if (this.options?.emitAll) {
-      this.emitted = string;
-
       const idn = this.options?.addLeadingZeros
-        ? isInValid(string, true)
+        ? isValid(string, true)
           ? string.padStart(8, '0')
           : string
         : string;
+
+      this.emitted = idn;
 
       this.changeFn?.(idn);
       this.prevValue = string;
@@ -114,14 +125,14 @@ export class IdInputDirective implements ControlValueAccessor {
       (this.options?.addLeadingZeros && string.length < 8)
     ) {
       if (this.emitted !== string) {
-        this.emitted = string;
-        this.changeFn?.(
-          !this.options?.emitInvalid
-            ? isInValid(value, true)
-              ? string.padStart(8, '0')
-              : null
-            : string,
-        );
+        const idn = !this.options?.emitInvalid
+          ? isValid(value, true)
+            ? string.padStart(8, '0')
+            : null
+          : string;
+
+        this.emitted = idn;
+        this.changeFn?.(idn);
       }
     } else if (this.emitted) {
       this.emitted = null;
@@ -139,7 +150,7 @@ export class IdInputDirective implements ControlValueAccessor {
 
     const isNotValid = !(
       (this.options?.emitAll || this.emitted) &&
-      isInValid(value, true)
+      isValid(value, true)
     );
 
     return {
@@ -148,9 +159,21 @@ export class IdInputDirective implements ControlValueAccessor {
       }),
     };
   }
+
+  onBlur() {
+    if (this.options?.addLeadingZeros && isValid(this.prevValue, true)) {
+      const string = this.emitted?.padStart(8, '0');
+
+      if (string) {
+        this.updateView(string);
+      }
+    }
+
+    this.touchedFn?.();
+  }
 }
 
-export function isInValid(
+export function isValid(
   idn: string | number | null,
   addLeadingZeros = false,
 ): boolean {

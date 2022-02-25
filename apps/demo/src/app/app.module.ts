@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormlyModule } from '@ngx-formly/core';
 import { NgxCzInModule } from '@stumpam/ngx-cz-in';
@@ -13,6 +13,7 @@ import { FormlyComponent } from './formly/formly.component';
     BrowserModule,
     NgxCzInModule,
     ReactiveFormsModule,
+    FormsModule,
     FormlyModule.forRoot({
       types: [{ name: 'cz-in', component: FormlyComponent }],
       validationMessages: [

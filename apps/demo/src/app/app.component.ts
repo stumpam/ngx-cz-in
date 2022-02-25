@@ -14,9 +14,13 @@ export class AppComponent implements OnInit {
 
   ctrl = new FormControl('');
   ctrl2 = new FormControl('');
-  ctrl3 = new FormControl('');
+  ctrl3 = new FormControl('', { updateOn: 'blur' });
 
-  options: CzInOptions = { emitAll: true, addLeadingZeros: true };
+  options: CzInOptions = {
+    emitAll: true,
+    emitInvalid: false,
+    addLeadingZeros: true,
+  };
 
   form = new FormGroup({});
   model = {};
@@ -45,9 +49,9 @@ export class AppComponent implements OnInit {
     this.ctrl2.valueChanges.subscribe(val =>
       console.log('appCmp2: ', val, this.ctrl2.errors),
     );
-    this.ctrl3.valueChanges.subscribe(val =>
-      console.log('appCmp2: ', val, this.ctrl3.errors),
-    );
+    this.ctrl3.valueChanges.subscribe(val => {
+      console.log('appCmp2: ', val, this.ctrl3.errors);
+    });
     this.form.valueChanges.subscribe(val =>
       console.log('formly: ', val, this.form.errors),
     );

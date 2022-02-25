@@ -17,10 +17,12 @@
     "baseUrl": ".",
     "paths": {
       "@stumpam/ngx-cz-in": ["libs/ngx-cz-in/src/index.ts"]
-    }
+    },
+    "strict": true
   },
   "angularCompilerOptions": {
-    "disableTypeScriptVersionCheck": true
+    "disableTypeScriptVersionCheck": true,
+    "strictTemplates": true
   },
   "exclude": ["node_modules", "tmp"]
 }

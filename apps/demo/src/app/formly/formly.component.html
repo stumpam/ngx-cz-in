@@ -1,8 +1,8 @@
 <input
   ngxCzIn
-  [formControl]="formControl"
+  [formControl]="$any(formControl)"
   [options]="to.czIdOptions"
-  [formlyAttributes]="to.attributes"
+  [formlyAttributes]="$any(to.attributes)"
   (blur)="blur = true"
 />
 

@@ -14,7 +14,6 @@ import { FieldType } from '@ngx-formly/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormlyComponent extends FieldType {
-  attributes = {};
   blur = false;
 
   constructor(private readonly cd: ChangeDetectorRef) {
