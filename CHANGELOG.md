@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.0](https://github.com/stumpam/ngx-cz-in/compare/v1.3.0...v2.0.0) (2022-02-28)
+
+
+### ⚠ BREAKING CHANGES
+
+* exported class name has changed
+
+### Features
+
+* rename of default class ([64a6144](https://github.com/stumpam/ngx-cz-in/commit/64a61441a56790e4dccdbb82c49b3b91ac195377))
+
 ## [1.3.0](https://github.com/stumpam/ngx-cz-in/compare/v1.2.0...v1.3.0) (2022-02-28)
 
 
