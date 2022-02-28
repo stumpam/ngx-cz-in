@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/stumpam/ngx-cz-in/compare/v1.2.0...v1.3.0) (2022-02-28)
+
+
+### Features
+
+* improve behaviour on numbers w/o leading zeros ([e2d1399](https://github.com/stumpam/ngx-cz-in/commit/e2d1399100acbf3167eb4afd07779e5223e44ce1))
+
+
+### Bug Fixes
+
+* export directive as public api ([c1ac306](https://github.com/stumpam/ngx-cz-in/commit/c1ac306b9fb8870682d69c2003b5017390ff2b8d))
+* update github actions to yarn ([367ce6b](https://github.com/stumpam/ngx-cz-in/commit/367ce6b24767e46f3baf0d3d55074d538bc8a33d))
+
 ## [1.2.0](https://github.com/stumpam/ngx-cz-in/compare/v1.1.2...v1.2.0) (2022-02-25)
 
 
