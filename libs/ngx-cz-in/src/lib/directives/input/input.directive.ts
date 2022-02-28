@@ -16,15 +16,15 @@ import {
 
 import { CzInOptions } from '../../interfaces/cz-in.interface';
 
-const ID_VALUE_ACCESSOR = {
+const CZ_IN_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => IdInputDirective),
+  useExisting: forwardRef(() => CzInInputDirective),
   multi: true,
 };
 
-const ID_VALUE_VALIDATOR = {
+const CZ_IN_VALUE_VALIDATOR = {
   provide: NG_VALIDATORS,
-  useExisting: forwardRef(() => IdInputDirective),
+  useExisting: forwardRef(() => CzInInputDirective),
   multi: true,
 };
 
@@ -35,9 +35,9 @@ const ID_VALUE_VALIDATOR = {
     '(click)': 'onClick()',
     '(input)': 'onInput($event.target.value)',
   },
-  providers: [ID_VALUE_ACCESSOR, ID_VALUE_VALIDATOR],
+  providers: [CZ_IN_VALUE_ACCESSOR, CZ_IN_VALUE_VALIDATOR],
 })
-export class IdInputDirective implements ControlValueAccessor {
+export class CzInInputDirective implements ControlValueAccessor {
   @Input() min?: number;
   @Input() max?: number;
   @Input() options?: CzInOptions;

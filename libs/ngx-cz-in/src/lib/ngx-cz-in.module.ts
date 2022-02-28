@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { IdInputDirective } from './directives/input/input.directive';
+import { CzInInputDirective } from './directives/input/input.directive';
 
 @NgModule({
   imports: [CommonModule],
-  exports: [IdInputDirective],
-  declarations: [IdInputDirective],
+  exports: [CzInInputDirective],
+  declarations: [CzInInputDirective],
 })
 export class NgxCzInModule {}
