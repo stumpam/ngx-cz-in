@@ -122,7 +122,9 @@ export class IdInputDirective implements ControlValueAccessor {
 
     if (
       string.length === 8 ||
-      (this.options?.addLeadingZeros && string.length < 8)
+      (this.options?.addLeadingZeros &&
+        string.length < 8 &&
+        isValid(value, true))
     ) {
       if (this.emitted !== string) {
         const idn = !this.options?.emitInvalid
@@ -130,7 +132,6 @@ export class IdInputDirective implements ControlValueAccessor {
             ? string.padStart(8, '0')
             : null
           : string;
-
         this.emitted = idn;
         this.changeFn?.(idn);
       }
@@ -161,11 +162,14 @@ export class IdInputDirective implements ControlValueAccessor {
   }
 
   onBlur() {
-    if (this.options?.addLeadingZeros && isValid(this.prevValue, true)) {
-      const string = this.emitted?.padStart(8, '0');
-
-      if (string) {
-        this.updateView(string);
+    if (
+      this.emitted !== this.el.nativeElement.value &&
+      this.options?.addLeadingZeros &&
+      isValid(this.prevValue, true)
+    ) {
+      if (this.emitted) {
+        this.updateView(this.emitted);
+        this.cd.markForCheck();
       }
     }
 
