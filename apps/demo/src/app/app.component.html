@@ -7,11 +7,18 @@
   <h1>Welcome to {{ title }}!</h1>
 </header>
 <main>
-  <input ngxCzIn [formControl]="ctrl" />
-  <input ngxCzIn [formControl]="ctrl2" />
-  Options: <input ngxCzIn [formControl]="ctrl3" required [options]="options" />
+  <!-- <input ngxCzIn [formControl]="ctrl" />
+  <input ngxCzIn [formControl]="ctrl2" /> -->
+  Options:
+  <input
+    ngxCzIn
+    [ngModel]="ctrl3"
+    (ngModelChange)="update($event)"
+    required
+    [options]="options"
+  />
 
-  <form [formGroup]="form">
+  <!-- <form [formGroup]="form">
     <formly-form [form]="form" [fields]="fields" [model]="model"></formly-form>
-  </form>
+  </form> -->
 </main>
