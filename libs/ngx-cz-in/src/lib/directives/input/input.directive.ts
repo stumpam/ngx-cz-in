@@ -88,7 +88,7 @@ export class CzInInputDirective implements ControlValueAccessor {
   onInput(value: string | null) {
     if (value === this.emitted) return;
 
-    const id = value?.match(/\d+/g);
+    const id = value?.trim().match(/\d+/g);
 
     if (!id) {
       this.updateView('');
@@ -124,11 +124,11 @@ export class CzInInputDirective implements ControlValueAccessor {
       string.length === 8 ||
       (this.options?.addLeadingZeros &&
         string.length < 8 &&
-        isValid(value, true))
+        isValid(id[0], true))
     ) {
       if (this.emitted !== string) {
         const idn = !this.options?.emitInvalid
-          ? isValid(value, true)
+          ? isValid(id[0], true)
             ? string.padStart(8, '0')
             : null
           : string;
