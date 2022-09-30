@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.2](https://github.com/stumpam/ngx-cz-in/compare/v2.0.1...v2.0.2) (2022-09-30)
+
+
+### Bug Fixes
+
+* id can be pasted with trailing space ([5478aa2](https://github.com/stumpam/ngx-cz-in/commit/5478aa26006bd0f55eb09540443d24c7e44376ed))
+
 ### [2.0.1](https://github.com/stumpam/ngx-cz-in/compare/v2.0.0...v2.0.1) (2022-03-03)
 
 ## [2.0.0](https://github.com/stumpam/ngx-cz-in/compare/v1.3.0...v2.0.0) (2022-02-28)
