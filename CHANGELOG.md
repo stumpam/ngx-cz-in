@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/stumpam/ngx-cz-in/compare/v2.0.2...v2.1.0) (2022-11-02)
+
+
+### Features
+
+* add non empty error option ([dc81ae6](https://github.com/stumpam/ngx-cz-in/commit/dc81ae6f4d58c881817dd00890045ed87196f5d4))
+
 ### [2.0.2](https://github.com/stumpam/ngx-cz-in/compare/v2.0.1...v2.0.2) (2022-09-30)
 
 
