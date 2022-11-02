@@ -147,7 +147,15 @@ export class CzInInputDirective implements ControlValueAccessor {
   }
 
   validate({ value }: FormControl) {
-    if (!value && !this.required) return null;
+    if (!value) {
+      if (this.options?.nonEmptyError && this.el.nativeElement.value !== '') {
+        return { invalidCzIn: true };
+      }
+
+      if (!this.required) {
+        return null;
+      }
+    }
 
     const isNotValid = !(
       (this.options?.emitAll || this.emitted) &&
@@ -174,6 +182,10 @@ export class CzInInputDirective implements ControlValueAccessor {
     }
 
     this.touchedFn?.();
+
+    if (!this.emitted) {
+      this.changeFn?.(null);
+    }
   }
 }
 
