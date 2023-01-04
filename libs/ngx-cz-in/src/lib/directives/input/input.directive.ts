@@ -4,6 +4,7 @@ import {
   Directive,
   ElementRef,
   forwardRef,
+  HostListener,
   Input,
   Renderer2,
 } from '@angular/core';
@@ -18,26 +19,22 @@ import { CzInOptions } from '../../interfaces/cz-in.interface';
 
 const CZ_IN_VALUE_ACCESSOR = {
   provide: NG_VALUE_ACCESSOR,
-  useExisting: forwardRef(() => CzInInputDirective),
+  useExisting: forwardRef(() => NgxCzInDirective),
   multi: true,
 };
 
 const CZ_IN_VALUE_VALIDATOR = {
   provide: NG_VALIDATORS,
-  useExisting: forwardRef(() => CzInInputDirective),
+  useExisting: forwardRef(() => NgxCzInDirective),
   multi: true,
 };
 
 @Directive({
   selector: '[ngxCzIn]',
-  host: {
-    '(blur)': 'onBlur()',
-    '(click)': 'onClick()',
-    '(input)': 'onInput($event.target.value)',
-  },
+  standalone: true,
   providers: [CZ_IN_VALUE_ACCESSOR, CZ_IN_VALUE_VALIDATOR],
 })
-export class CzInInputDirective implements ControlValueAccessor {
+export class NgxCzInDirective implements ControlValueAccessor {
   @Input() min?: number;
   @Input() max?: number;
   @Input() options?: CzInOptions;
@@ -81,10 +78,12 @@ export class CzInInputDirective implements ControlValueAccessor {
     this.cd.markForCheck();
   }
 
+  @HostListener('click')
   onClick() {
     this.touchedFn?.();
   }
 
+  @HostListener('input', ['$event.target.value'])
   onInput(value: string | null) {
     if (value === this.emitted) return;
 
@@ -127,11 +126,11 @@ export class CzInInputDirective implements ControlValueAccessor {
         isValid(id[0], true))
     ) {
       if (this.emitted !== string) {
-        const idn = !this.options?.emitInvalid
-          ? isValid(id[0], true)
-            ? string.padStart(8, '0')
-            : null
-          : string;
+        const idn = this.options?.emitInvalid
+          ? string
+          : isValid(id[0], true)
+          ? string.padStart(8, '0')
+          : null;
         this.emitted = idn;
         this.changeFn?.(idn);
       }
@@ -146,7 +145,7 @@ export class CzInInputDirective implements ControlValueAccessor {
     this.renderer.setProperty(this.el.nativeElement, 'value', string);
   }
 
-  validate({ value }: FormControl) {
+  validate({ value }: FormControl<string>) {
     if (!value) {
       if (this.options?.nonEmptyError && this.el.nativeElement.value !== '') {
         return { invalidCzIn: true };
@@ -169,16 +168,16 @@ export class CzInInputDirective implements ControlValueAccessor {
     };
   }
 
+  @HostListener('blur')
   onBlur() {
     if (
       this.emitted !== this.el.nativeElement.value &&
       this.options?.addLeadingZeros &&
-      isValid(this.prevValue, true)
+      isValid(this.prevValue, true) &&
+      this.emitted
     ) {
-      if (this.emitted) {
-        this.updateView(this.emitted);
-        this.cd.markForCheck();
-      }
+      this.updateView(this.emitted);
+      this.cd.markForCheck();
     }
 
     this.touchedFn?.();
@@ -205,11 +204,12 @@ export function isValid(
 
   if (idn.length !== 8 || !idn?.match(/\d+/g)) return false;
 
-  const result = [...idn.slice(0, 7)].reduce(
-    (sum, num, index) => sum + (8 - index) * +num,
-    0,
-  );
+  let result = 0;
 
+  // eslint-disable-next-line unicorn/no-useless-spread
+  for (const [index, num] of [...idn.slice(0, 7)].entries()) {
+    result = result + (8 - index) * +num;
+  }
   const rest = result % 11;
   const last = +idn.slice(-1);
 

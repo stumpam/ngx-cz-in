@@ -1,21 +1,22 @@
-# NgxCzId
+# NgxCzIn
 
 Angular input for czech identification number (IČO) with validation.
 
 ## Quick Start
 
-1. Import `NgxCzInModule` to your project.
+1. Import `NgxCzInDirective` to your project (module) or component.
 
 ```typescript
-import { NgxCzInModule } from '@stumpam/ngx-cz-in';
+import { NgxCzInDirective } from '@stumpam/ngx-cz-in';
 
-@NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, NgxCzInModule, ReactiveFormsModule],
-  providers: [],
-  bootstrap: [AppComponent],
+@Component({
+  selector: 'ngx-cz-in-root',
+  standalone: true,
+  templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgxCzInDirective]
 })
-export class AppModule {}
+export class AppComponent
 ```
 
 2. Use in HTML template
@@ -23,18 +24,20 @@ export class AppModule {}
 - add attributes min or max to validate even age of person with current id
 
 ```HTML
-<input ngxCzId [formControl]="ctrl" [options]="options">
+<input ngxCzIn [formControl]="ctrl" [options]="options">
 ```
 
 3. Optional options to emit only valid cz id value
 
 ```typescript
 options: {
-  emitInvalid: false;
+  emitInvalid?: boolean;
   // emits all typed characters not just valid / invalid complete id
-  emitAll: boolean;
+  emitAll?: boolean;
   // it automatically add leading zeros for ins with them
   addLeadingZero: boolean;
+  // If input is not empty, but value is not correct, on blur event it will fire validation
+  nonEmptyError?: boolean;
 }
 ```
 

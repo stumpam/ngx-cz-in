@@ -1,5 +1,5 @@
-module.exports = {
-  preset: '../../jest.preset.js',
+/* eslint-disable */
+export default {
   coverageDirectory: '../../coverage/libs/ngx-cz-in',
 
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
@@ -17,4 +17,5 @@ module.exports = {
     'jest-preset-angular/build/serializers/html-comment',
   ],
   transform: { '^.+\\.(ts|js|html)$': 'jest-preset-angular' },
+  preset: '..\\..\\jest.preset.ts',
 };
