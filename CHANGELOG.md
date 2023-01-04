@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/stumpam/ngx-cz-in/compare/v2.1.0...v2.2.0) (2023-01-04)
+
+
+### Features
+
+* make directive standalone ([ba87bb3](https://github.com/stumpam/ngx-cz-in/commit/ba87bb3bf29de1ca4cca527ab9af4f0f3076f399))
+
 ## [2.1.0](https://github.com/stumpam/ngx-cz-in/compare/v2.0.2...v2.1.0) (2022-11-02)
 
 
